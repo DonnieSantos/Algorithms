@@ -1,51 +1,52 @@
-Main.Radius = 60;
-Main.Padding = 140;
-Main.MaxPadding = 140;
+Model = {}
+Model.Radius = 60;
+Model.Padding = 140;
+Model.MaxPadding = 140;
 
-Main.CenterModel = {
-    "radius": Main.Radius,
-    "padding": Main.Padding,
+Model.Centerpiece = {
+    "radius": Model.Radius,
+    "padding": Model.Padding,
     "x": 295,
     "y": 240
 };
 
-Main.FidgetModels = [
+Model.Fidgets = [
     {
         "radian": 0.5,
-        "radius": Main.CenterModel.radius,
-        "padding": Main.Padding * 2.666
+        "radius": Model.Centerpiece.radius,
+        "padding": Model.Padding * 2.666
     },
     {
-        "radian": Main.OneThirdRadian + 0.5,
-        "radius": Main.CenterModel.radius,
-        "padding": Main.Padding * 2.666
+        "radian": UI.OneThirdRadian + 0.5,
+        "radius": Model.Centerpiece.radius,
+        "padding": Model.Padding * 2.666
     },
     {
-        "radian": Main.OneThirdRadian * 2 + 0.5,
-        "radius": Main.CenterModel.radius,
-        "padding": Main.Padding * 2.666
+        "radian": UI.OneThirdRadian * 2 + 0.5,
+        "radius": Model.Centerpiece.radius,
+        "padding": Model.Padding * 2.666
     }
 ];
 
-Main.LightModels = [
+Model.Lights = [
     {
         "radian": 0,
-        "radius": Main.CenterModel.radius / 4,
-        "padding": Main.Radius / 2
+        "radius": Model.Centerpiece.radius / 4,
+        "padding": Model.Radius / 2
     },
     {
-        "radian": Main.OneThirdRadian,
-        "radius": Main.CenterModel.radius / 4,
-        "padding": Main.Radius / 2
+        "radian": UI.OneThirdRadian,
+        "radius": Model.Centerpiece.radius / 4,
+        "padding": Model.Radius / 2
     },
     {
-        "radian": Main.OneThirdRadian * 2,
-        "radius": Main.CenterModel.radius / 4,
-        "padding": Main.Radius / 2
+        "radian": UI.OneThirdRadian * 2,
+        "radius": Model.Centerpiece.radius / 4,
+        "padding": Model.Radius / 2
     }
 ];
 
-Main.Speed = {
+Model.Speed = {
     "Inner": {
         "value": 0,
         "max": 0.5

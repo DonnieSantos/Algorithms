@@ -1,34 +1,30 @@
-$(document).ready(function () {
-    Colors.ApplyScheme(0);
-    Main.BindRangeInputs();
-    Main.Animate();
-});
+Main = {}
 
 Main.BindRangeInputs = function () {
 
     document.getElementsByClassName("outer-speed-input")[0].addEventListener("input", function (clickEvent) {
-        Main.Speed.Outer.value = Main.Speed.Outer.max * (clickEvent.target.value / 100);
+        Model.Speed.Outer.value = Model.Speed.Outer.max * (clickEvent.target.value / 100);
     });
 
     document.getElementsByClassName("inner-speed-input")[0].addEventListener("input", function (clickEvent) {
-        Main.Speed.Inner.value = Main.Speed.Inner.max * (clickEvent.target.value / 100);
+        Model.Speed.Inner.value = Model.Speed.Inner.max * (clickEvent.target.value / 100);
     });
 
     document.getElementsByClassName("padding-input")[0].addEventListener("input", function (clickEvent) {
-        Main.Padding = Main.MaxPadding * (Math.abs(clickEvent.target.value - 100) / 100);
+        Model.Padding = Model.MaxPadding * (Math.abs(clickEvent.target.value - 100) / 100);
     });
 
     document.getElementsByClassName("radius-input")[0].addEventListener("input", function (clickEvent) {
         var percent = (clickEvent.target.value - 60) / 30;
-        Main.FidgetModels[0].radius = clickEvent.target.value;
-        Main.FidgetModels[1].radius = clickEvent.target.value;
-        Main.FidgetModels[2].radius = clickEvent.target.value;
-        Main.LightModels[0].radius = (Main.CenterModel.radius / 4) + (15 * percent);
-        Main.LightModels[1].radius = (Main.CenterModel.radius / 4) + (15 * percent);
-        Main.LightModels[2].radius = (Main.CenterModel.radius / 4) + (15 * percent);
-        Main.LightModels[0].padding = (Main.Radius / 2) + (15 * percent);
-        Main.LightModels[1].padding = (Main.Radius / 2) + (15 * percent);
-        Main.LightModels[2].padding = (Main.Radius / 2) + (15 * percent);
+        Model.Fidgets[0].radius = clickEvent.target.value;
+        Model.Fidgets[1].radius = clickEvent.target.value;
+        Model.Fidgets[2].radius = clickEvent.target.value;
+        Model.Lights[0].radius = (Model.Centerpiece.radius / 4) + (15 * percent);
+        Model.Lights[1].radius = (Model.Centerpiece.radius / 4) + (15 * percent);
+        Model.Lights[2].radius = (Model.Centerpiece.radius / 4) + (15 * percent);
+        Model.Lights[0].padding = (Model.Radius / 2) + (15 * percent);
+        Model.Lights[1].padding = (Model.Radius / 2) + (15 * percent);
+        Model.Lights[2].padding = (Model.Radius / 2) + (15 * percent);
     });
 
     document.getElementsByClassName("style-input")[0].addEventListener("input", function (clickEvent) {
@@ -36,36 +32,29 @@ Main.BindRangeInputs = function () {
     });
 }
 
-Main.Animate = function () {
-    Main.Clear();
-    Main.DrawCircles();
-    requestAnimFrame(function () { Main.Animate(); });
-}
-
-Main.ConfigureOrbitingCircle = function (origin, destination, colors) {
-    Main.Circle.x = origin.x + destination.padding * Math.cos(destination.radian);
-    Main.Circle.y = origin.y + destination.padding * Math.sin(destination.radian);
-    Main.Circle.r = destination.radius;
-    Main.Circle.c = colors;
-}
-
-Main.DrawCircles = function () {
-
-    Main.Circle.Configure(Main.CenterModel.x, Main.CenterModel.y, Main.CenterModel.radius, Colors.ColorScheme.CenterFidget);
-    Main.Circle.Draw();
-
-    for (var i = 0; i < Main.FidgetModels.length; i++) {
-        Main.FidgetModels[i].radian += Main.Speed.Outer.value;
-        Main.FidgetModels[i].padding = Main.Padding;
-        Main.ConfigureOrbitingCircle(Main.CenterModel, Main.FidgetModels[i], Colors.ColorScheme.Fidgets[i]);
-        Main.Circle.Draw();
-        var fidget = { "x": Main.Circle.x, "y": Main.Circle.y }
-        for (var j = 0; j < Main.LightModels.length; j++) {
-            var lightModel = Main.LightModels[j];
-            lightModel.radian += Main.Speed.Inner.value;
-            Main.ConfigureOrbitingCircle(fidget, lightModel, Colors.ColorScheme.Lights[j]);
-            Main.Circle.Draw();
+Main.Render = function () {
+    UI.DrawCircleModel(Model.Centerpiece, Colors.ColorScheme.CenterFidget)
+    for (var i = 0; i < Model.Fidgets.length; i++) {
+        Model.Fidgets[i].radian += Model.Speed.Outer.value;
+        Model.Fidgets[i].padding = Model.Padding;
+        var fidget = UI.DrawOrbitingCircle(Model.Centerpiece, Model.Fidgets[i], Colors.ColorScheme.Fidgets[i]);
+        for (var j = 0; j < Model.Lights.length; j++) {
+            var lightModel = Model.Lights[j];
+            lightModel.radian += Model.Speed.Inner.value;
+            UI.DrawOrbitingCircle(fidget, lightModel, Colors.ColorScheme.Lights[j]);
         }
     }
     Colors.ColorScheme.UpdateAlphaValues();
 }
+
+Main.Animate = function () {
+    UI.Clear();
+    Main.Render();
+    requestAnimFrame(function () { Main.Animate(); });
+}
+
+$(document).ready(function () {
+    Colors.ApplyScheme(0);
+    Main.BindRangeInputs();
+    Main.Animate();
+});

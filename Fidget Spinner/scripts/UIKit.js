@@ -1,36 +1,39 @@
-Main = {};
-Main.Circle = {};
-Main.Canvas = document.getElementById('myCanvas');
-Main.Context = Main.Canvas.getContext('2d');
-Main.MaxRadian = 2 * Math.PI;
-Main.OneThirdRadian = Main.MaxRadian / 3;
+UI = {};
+UI.Canvas = document.getElementById('myCanvas');
+UI.Context = UI.Canvas.getContext('2d');
+UI.MaxRadian = 2 * Math.PI;
+UI.OneThirdRadian = UI.MaxRadian / 3;
 
-Main.Clear = function () {
-    Main.Context.clearRect(0, 0, Main.Canvas.width, Main.Canvas.height);
+UI.Clear = function () {
+    UI.Context.clearRect(0, 0, UI.Canvas.width, UI.Canvas.height);
 }
 
-Main.Circle.Configure = function(x, y, radius, colors) {
-    Main.Circle.x = x;
-    Main.Circle.y = y;
-    Main.Circle.r = radius;
-    Main.Circle.c = colors;
+UI.DrawCircleModel = function (model, colors) {
+    UI.DrawCircle(model.x, model.y, model.radius, colors);
 }
 
-Main.Circle.Draw = function () {
+UI.DrawOrbitingCircle = function (origin, destination, colors) {
+    var x = origin.x + destination.padding * Math.cos(destination.radian);
+    var y = origin.y + destination.padding * Math.sin(destination.radian);
+    var radius = destination.radius;
+    UI.DrawCircle(x, y, radius, colors);
+    return { "x": x, "y": y }
+}
 
-    var colors = Main.Circle.c;
+UI.DrawCircle = function (x, y, radius, colors) {
+
     var outlineColor = "rgba(" + colors.r + "," + colors.g + "," + colors.b + "," + colors.a.level + ")";
     var fillColor = "rgba(" + colors.fill.r + "," + colors.fill.g + "," + colors.fill.b + "," + colors.fill.a.level + ")";
 
-    Main.Context.lineWidth = colors.w;
-    Main.Context.shadowBlur = colors.s;
-    Main.Context.strokeStyle = outlineColor;
-    Main.Context.shadowColor = outlineColor;
-    Main.Context.beginPath();
-    Main.Context.arc(this.x, this.y, this.r, 0, Main.MaxRadian);
-    Main.Context.stroke();
-    Main.Context.fillStyle = fillColor;
-    Main.Context.fill();
+    UI.Context.lineWidth = colors.w;
+    UI.Context.shadowBlur = colors.s;
+    UI.Context.strokeStyle = outlineColor;
+    UI.Context.shadowColor = outlineColor;
+    UI.Context.beginPath();
+    UI.Context.arc(x, y, radius, 0, UI.MaxRadian);
+    UI.Context.stroke();
+    UI.Context.fillStyle = fillColor;
+    UI.Context.fill();
 }
 
 window.requestAnimFrame = (function (callback) {
