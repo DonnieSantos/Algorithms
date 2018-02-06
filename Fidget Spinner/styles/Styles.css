@@ -3,6 +3,7 @@ BODY {
 }
 
 .canvas-element {
+    display: inline-block;
     border: 3px solid black;
     margin-left: 20px;
     margin-top: 20px;

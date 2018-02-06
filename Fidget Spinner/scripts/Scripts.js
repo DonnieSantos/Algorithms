@@ -18,6 +18,19 @@ Main.BindRangeInputs = function () {
         Main.Padding = Main.MaxPadding * (Math.abs(clickEvent.target.value - 100) / 100);
     });
 
+    document.getElementsByClassName("radius-input")[0].addEventListener("input", function (clickEvent) {
+        var percent = (clickEvent.target.value - 60) / 30;
+        Main.FidgetModels[0].radius = clickEvent.target.value;
+        Main.FidgetModels[1].radius = clickEvent.target.value;
+        Main.FidgetModels[2].radius = clickEvent.target.value;
+        Main.LightModels[0].radius = (Main.CenterModel.radius / 4) + (15 * percent);
+        Main.LightModels[1].radius = (Main.CenterModel.radius / 4) + (15 * percent);
+        Main.LightModels[2].radius = (Main.CenterModel.radius / 4) + (15 * percent);
+        Main.LightModels[0].padding = (Main.Radius / 2) + (15 * percent);
+        Main.LightModels[1].padding = (Main.Radius / 2) + (15 * percent);
+        Main.LightModels[2].padding = (Main.Radius / 2) + (15 * percent);
+    });
+
     document.getElementsByClassName("style-input")[0].addEventListener("input", function (clickEvent) {
         Colors.ApplyScheme(clickEvent.target.value);
     });
@@ -37,8 +50,10 @@ Main.ConfigureOrbitingCircle = function (origin, destination, colors) {
 }
 
 Main.DrawCircles = function () {
+
     Main.Circle.Configure(Main.CenterModel.x, Main.CenterModel.y, Main.CenterModel.radius, Colors.ColorScheme.CenterFidget);
     Main.Circle.Draw();
+
     for (var i = 0; i < Main.FidgetModels.length; i++) {
         Main.FidgetModels[i].radian += Main.Speed.Outer.value;
         Main.FidgetModels[i].padding = Main.Padding;

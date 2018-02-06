@@ -93,7 +93,7 @@ Colors.Schemes = function () {
             new Colors.Circle(0, 0, 0, 2, 2, 255, 255, 255, "None", "None")
         ]),
         new Colors.Scheme([
-            new Colors.Circle(50, 50, 150, 3, 3, 50, 50, 150, "None", "None"),
+            new Colors.Circle(50, 50, 150, 3, 3, 80, 80, 160, "None", "None"),
             new Colors.Circle(150, 50, 50, 3, 3, 255, 255, 255, "None", "None"),
             new Colors.Circle(50, 150, 50, 3, 3, 255, 255, 255, "None", "None"),
             new Colors.Circle(50, 50, 150, 3, 3, 255, 255, 255, "None", "None"),
@@ -102,7 +102,7 @@ Colors.Schemes = function () {
             new Colors.Circle(100, 100, 255, 2, 10, 0, 0, 255, "None", "None")
         ]),
         new Colors.Scheme([
-            new Colors.Circle(150, 150, 250, 3, 3, 25, 25, 75, "None", "None"),
+            new Colors.Circle(200, 150, 250, 6, 10, 80, 80, 160, "None", "None"),
             new Colors.Circle(255, 0, 0, 15, 75, 225, 225, 225, "Slow", "None"),
             new Colors.Circle(0, 255, 0, 15, 75, 225, 225, 225, "Slow", "None"),
             new Colors.Circle(0, 0, 255, 15, 75, 225, 225, 225, "Slow", "None"),
@@ -114,10 +114,8 @@ Colors.Schemes = function () {
 }
 
 Colors.ApplyScheme = function (index) {
-
     Colors.ColorSchemeIndex = index;
     Colors.ColorScheme = Colors.Schemes()[index];
-
     $("BODY").css("background-color", Colors.IsMusicOn() ? "black" : "E3E3FF");
     $(".canvas-element").css("background-color", Colors.IsMusicOn() ? "black" : "white");
     $("audio").trigger(Colors.IsMusicOn() ? "play" : "pause");
