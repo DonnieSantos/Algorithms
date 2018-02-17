@@ -1,4 +1,4 @@
-public class LinkedList{
+public class LinkedList {
 
 	private Node root;
 	private Node last;
@@ -11,9 +11,9 @@ public class LinkedList{
 	}
 	
 	public void append(Node node) {
-        last.setNextNode(node);
-        last = node;
-        size++;
+		last.setNextNode(node);
+		last = node;
+		size++;
 	}
 
 	public void insertNodeAtPosition(Node node, int position) {
@@ -22,23 +22,23 @@ public class LinkedList{
 		else insert(node, position);
 	}
 
-    private void insertNewRoot(Node node) {
-        node.setNextNode(root);
-        root = node;
-        size++;
-    }
+	private void insertNewRoot(Node node) {
+		node.setNextNode(root);
+		root = node;
+		size++;
+	}
 
 	private void insert(Node node, int index) {
 		Node targetNode = getNode(index, false);
 		node.setNextNode(targetNode.getNextNode());
 		targetNode.setNextNode(node);
-        size++;
+		size++;
 	}
 
 	public void print() {
-        System.out.println("List Size: [" + size + "]");
-	    getNode(size, true);
-    }
+		System.out.println("List Size: [" + size + "]");
+		getNode(size, true);
+	}
 
 	private Node getNode(int position, boolean shouldPrint)  {
 
