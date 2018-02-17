@@ -1,5 +1,5 @@
-public class LinkedList
-{
+public class LinkedList{
+
 	private Node root;
 	private Node last;
 	private int size;
