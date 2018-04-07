@@ -5,16 +5,9 @@ public class Main {
         // Assuming Sorted List.
         // java.util.Arrays.sort(int[])
 
-        int[] oddLengthList = new int [] {15, 25, 35, 45, 55, 65, 75};
-        int[] evenLengthList = new int [] {15, 25, 35, 45, 55, 65, 75, 85};
-        int[] edgeCaseListOne = new int [] {15};
-        int[] edgeCaseListTwo = new int [] {15, 25};
-        int[] edgeCaseListZero = new int [0];
-
-        Node root = new Node(oddLengthList);
-        root = new Node(evenLengthList);
-        root = new Node(edgeCaseListOne);
-        root = new Node(edgeCaseListTwo);
-        root = new Node(edgeCaseListZero);
+        Node rootOdd = new Node(new int [] {15, 25, 35, 45, 55, 65, 75});
+        Node rootEven = new Node(new int [] {15, 25, 35, 45, 55, 65, 75, 85});
+        Node rootEdgeCase1 = new Node(new int [] {15});
+        Node rootEdgeCase2 = new Node(new int [] {15, 25});
     }
 }
