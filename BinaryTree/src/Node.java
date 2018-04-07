@@ -15,8 +15,6 @@ public class Node {
         int length = values.length;
 
         switch (length) {
-            case 0:
-                return;
             case 1:
                 this.value = values[0];
                 return;
@@ -27,9 +25,18 @@ public class Node {
                 this.leftChild = new Node(min);
             default:
                 int median = length / 2;
-                this.leftChild = new Node(Arrays.copyOfRange(values, 0, median));
+                int[] leftArray = Arrays.copyOfRange(values, 0, median);
+                int[] rightArray = Arrays.copyOfRange(values, median + 1, values.length);
+
+                if (leftArray.length > 0) {
+                    this.leftChild = new Node(leftArray);
+                }
+
                 this.value = values[median];
-                this.rightChild = new Node(Arrays.copyOfRange(values, median + 1, values.length));
+
+                if (rightArray.length > 0) {
+                    this.rightChild = new Node(rightArray);
+                }
         }
     }
 }
